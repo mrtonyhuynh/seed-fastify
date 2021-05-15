@@ -1,0 +1,8 @@
+{
+  "verbose": false,
+  "ignore": [
+    "internals"
+  ],
+  "signal": "SIGHUP",
+  "delay": "1500"
+}

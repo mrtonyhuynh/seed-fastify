@@ -1,0 +1,61 @@
+{
+  "name": "fastify-application",
+  "version": "1.0.0",
+  "description": "A blazing fast App with Node.js, Fastify and Swagger.",
+  "author": "Tony Huynh <mr.tonyhuynh@gmail.com>",
+  "main": "src/index.js",
+  "license": "ISC",
+  "engines": {
+    "node": ">=12 <=15"
+  },
+  "nodemonConfig": {
+    "signal": "SIGHUP",
+    "delay": "1500"
+  },
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+    "build": "yarn prebuild && babel src -d dist",
+    "start": "nodemon --exec babel-node src/index.js",
+    "start:prod": "yarn build && node dist/server.js",
+    "lint": "yarn lint:js",
+    "lint:eslint": "eslint --ignore-path .gitignore --ignore-pattern internals",
+    "lint:eslint:fix": "eslint --ignore-path .gitignore --ignore-pattern internals --fix",
+    "lint:js": "yarn lint:eslint -- ./src ",
+    "lint:staged": "lint-staged",
+    "prettify": "prettier --write src"
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn lint:eslint:fix",
+      "git add --force"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add --force"
+    ]
+  },
+  "pre-commit": "lint:staged",
+  "dependencies": {
+    "boom": "^7.3.0",
+    "fastify": "^3.15.1",
+    "fastify-boom": "^1.0.0",
+    "fastify-swagger": "^4.7.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.2",
+    "@babel/eslint-parser": "^7.14.2",
+    "@babel/node": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/runtime": "^7.14.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.0",
+    "rimraf": "^3.0.2"
+  }
+}
